@@ -28,7 +28,7 @@ function App() {
     setReview(``)
 
     try {
-      const response = await axios.post('http://localhost:3000/ai/get-review', { code })
+      const response = await axios.post('https://ai-code-reviewer-api.onrender.com/ai/get-review', { code })
       setReview(response.data)
     } catch (error) {
       console.error("Error getting review:", error)
@@ -50,29 +50,27 @@ function App() {
       <main>
         <div className="left">
           <div className="code">
-            <div className="code">
-              <Editor
-                value={code}
-                onValueChange={(code) => setCode(code)}
-                onFocus={() => {
-                  if (code === placeholderText) {
-                    setCode("");
-                  }
-                }}
-                highlight={(code) =>
-                  prism.highlight(code, prism.languages.javascript, "javascript")
+            <Editor
+              value={code}
+              onValueChange={(code) => setCode(code)}
+              onFocus={() => {
+                if (code === placeholderText) {
+                  setCode("");
                 }
-                padding={15}
-                style={{
-                  fontFamily: '"Fira code", "Fira Mono", monospace',
-                  fontSize: 16,
-                  border: "1px solid black",
-                  borderRadius: "1rem",
-                  height: "100%",
-                  width: "100%"
-                }}
-              />
-            </div>
+              }}
+              highlight={(code) =>
+                prism.highlight(code, prism.languages.javascript, "javascript")
+              }
+              padding={15}
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 16,
+                border: "1px solid black",
+                borderRadius: "1rem",
+                height: "100%",
+                width: "100%"
+              }}
+            />
           </div>
           <div
             onClick={reviewCode}
